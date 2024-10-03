@@ -1,7 +1,5 @@
-"use client";
-import React, { useState, useEffect } from "react";
 import ProductService from "../services/products";
-import Image from "next/image";
+import Product from "@/Components/Product";
 
 interface Product {
     id: number;
@@ -12,39 +10,14 @@ interface Product {
     image: string;
 }
 
-async function getProducts() {
-    const data = await ProductService.getProducts();
-    console.log("🚀 ~ data:", data);
-    return data;
-}
-
-export default function Page() {
-    const [allProducts, setAllProducts] = useState([]);
-
-    useEffect(() => {
-        const data = getProducts();
-
-        data.then((data) => {
-            setAllProducts(data);
-        });
-    }, []);
+export default async function Page() {
+    const products: Product[] = await ProductService.getProducts();
 
     return (
-        <div>
-            {allProducts.length &&
-                allProducts.map((product: Product) => {
-                    return (
-                        <div key={product.id}>
-                            <h1>{product.title}</h1>
-                            <p>{product.description}</p>
-                            <Image
-                                src={product.image}
-                                alt={product.title}
-                                width="200"
-                                height="200"
-                            />
-                        </div>
-                    );
+        <div className="flex flex-wrap justify-center items-center gap-4 w-3/4 border-2 border-blue-500">
+            {products.length &&
+                products.map((product: Product) => {
+                    return <Product product={product} key={product.id} />;
                 })}
         </div>
     );

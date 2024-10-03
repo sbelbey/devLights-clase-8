@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -13,6 +14,16 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
                 </li>
                 <li>
                     <Link href="/productos">Productos</Link>
+                </li>
+                <li>
+                    <Link href="/carrito">
+                        <Image
+                            width={50}
+                            height={50}
+                            src={"icons/cart_icon.svg"}
+                            alt="Carrito de compras"
+                        />
+                    </Link>
                 </li>
             </ul>
         </div>
